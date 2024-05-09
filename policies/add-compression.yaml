@@ -1,0 +1,12 @@
+inbound: []
+outbound:
+  - expressions: []
+    name: Add compression
+    actions:
+      - type: compress-response
+        config:
+          algorithms:
+            - gzip
+            - br
+            - deflate
+            - compress

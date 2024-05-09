@@ -1,0 +1,11 @@
+inbound:
+  - expressions
+    - req.Method == 'POST' || req.Method == 'PUT'
+    - req.ContentLength >= 1000
+    name: Block POST/PUT reqests of excessive length
+    actions:
+      - type: custom-response
+        config:
+          status_code: 400
+          content: 'Error: content length'
+outbound: []

@@ -1,0 +1,12 @@
+inbound: []
+outbound:
+  - expressions:
+      - res.StatusCode < '200' && res.StatusCode >= '300'
+    name: Log unsuccessful requests
+    actions:
+      - type: log
+        config:
+          metadata:
+            message: Unsuccessful request
+            edge_id: <YOUR-NGROK-DOMAIN>
+            success: false

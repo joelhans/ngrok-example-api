@@ -1,0 +1,29 @@
+inbound:
+  - expressions: []
+    actions:
+    - type: add-headers
+      config:
+        headers:
+          timestamp: ${.conn.start_ts}
+  - expressions:
+      - hasReqHeader('Timestamp')
+    name: Test A
+    actions:
+      - type: custom-response
+        config:
+          status_code: 400
+  - expressions: []
+    name: Test B
+    actions:
+      - type: custom-response
+        config:
+          status_code: 400
+outbound: 
+  - expressions: []
+    name: Test A
+    actions:
+      - type: add-headers
+        config:
+          headers:
+            is-ngrok: "1"
+            country: ${.ngrok.geo.country_code}

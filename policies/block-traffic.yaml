@@ -1,0 +1,10 @@
+inbound:
+  - expressions:
+      - conn.Geo.CountryCode in ['<COUNTRY-01>', '<COUNTRY-02>']
+    name: Block traffic from unwanted countries
+    actions:
+      - type: custom-response
+        config:
+          status_code: 401
+          content: 'Unauthorized request due to country of origin'
+outbound: []

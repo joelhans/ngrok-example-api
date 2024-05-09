@@ -1,0 +1,26 @@
+inbound:
+  - expressions:
+      - "!('Authorization' in req.Headers)"
+    name: Unauthorized rate limiting tier
+    actions:
+      - type: rate-limit
+        config:
+          name: Allow 10 requests per minute
+          algorithm: sliding_window
+          capacity: 10
+          rate: 60s
+          bucket_key:
+            - conn.ClientIP
+  - expressions:
+      - ('Authorization' in req.Headers)
+    name: Authorized rate limiting tier
+    actions:
+      - type: rate-limit
+        config:
+          name: Allow 100 requests per minute
+          algorithm: sliding_window
+          capacity: 100
+          rate: 60s
+          bucket_key:
+            - conn.ClientIP
+outbound: []
